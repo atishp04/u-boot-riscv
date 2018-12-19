@@ -38,7 +38,9 @@
 #include <linux/mii.h>
 #include <asm/io.h>
 #include <asm/dma-mapping.h>
+#ifndef CONFIG_RISCV
 #include <asm/arch/clk.h>
+#endif
 #include <linux/errno.h>
 
 #include "macb.h"
@@ -1066,7 +1068,7 @@ static int macb_enable_clk(struct udevice *dev)
 	 */
 #ifndef CONFIG_MACB_ZYNQ
 	ret = clk_enable(&clk);
-	if (ret)
+	if (ret && ret != -ENOSYS)
 		return ret;
 #endif
 
