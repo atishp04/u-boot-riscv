@@ -1782,7 +1782,7 @@ $(mrproper-dirs):
 mrproper: clean $(mrproper-dirs)
 	$(call cmd,rmdirs)
 	$(call cmd,rmfiles)
-	@rm -f arch/*/include/asm/arch
+	@for d in `dirname arch/*/include/asm/arch`; do if [ -L $$d/arch ]; then echo "  CLEAN   "$$d/arch; rm -f $$d/arch; fi; done
 
 # distclean
 #
